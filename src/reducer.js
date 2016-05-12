@@ -1,54 +1,21 @@
-const INPUT_FOCUSED = 'INPUT_FOCUSED';
-const INPUT_BLURRED = 'INPUT_BLURRED';
-const INPUT_CHANGED = 'INPUT_CHANGED';
-const UPDATE_FOCUSED_SUGGESTION = 'UPDATE_FOCUSED_SUGGESTION';
-const REVEAL_SUGGESTIONS = 'REVEAL_SUGGESTIONS';
-const CLOSE_SUGGESTIONS = 'CLOSE_SUGGESTIONS';
+import {
+  INPUT_FOCUSED,
+  INPUT_BLURRED,
+  INPUT_CHANGED,
+  UPDATE_FOCUSED_SUGGESTION,
+  REVEAL_SUGGESTIONS,
+  CLOSE_SUGGESTIONS} from "./constants";
 
-export function inputFocused(shouldRenderSuggestions) {
-  return {
-    type: INPUT_FOCUSED,
-    shouldRenderSuggestions
-  };
-}
+const initialState = {
+  isFocused: false,
+  isCollapsed: true,
+  focusedSectionIndex: null,
+  focusedSuggestionIndex: null,
+  valueBeforeUpDown: null,
+  lastAction: null
+};
 
-export function inputBlurred() {
-  return {
-    type: INPUT_BLURRED
-  };
-}
-
-export function inputChanged(shouldRenderSuggestions, lastAction) {
-  return {
-    type: INPUT_CHANGED,
-    shouldRenderSuggestions,
-    lastAction
-  };
-}
-
-export function updateFocusedSuggestion(sectionIndex, suggestionIndex, value) {
-  return {
-    type: UPDATE_FOCUSED_SUGGESTION,
-    sectionIndex,
-    suggestionIndex,
-    value
-  };
-}
-
-export function revealSuggestions() {
-  return {
-    type: REVEAL_SUGGESTIONS
-  };
-}
-
-export function closeSuggestions(lastAction) {
-  return {
-    type: CLOSE_SUGGESTIONS,
-    lastAction
-  };
-}
-
-export default function reducer(state, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case INPUT_FOCUSED:
       return {

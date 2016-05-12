@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { createStore } from 'redux';
-import reducer from './reducerAndActions';
+import reducer from './reducer';
 import Autosuggest from './Autosuggest';
 
 function noop() {}
@@ -46,8 +46,6 @@ function mapToAutowhateverTheme(theme) {
   return result;
 }
 
-export { reducer };
-
 export default class AutosuggestContainer extends Component {
   static propTypes = {
     suggestions: PropTypes.array.isRequired,
@@ -92,24 +90,7 @@ export default class AutosuggestContainer extends Component {
   };
 
   constructor() {
-    super();
-
-    const initialState = {
-      isFocused: false,
-      isCollapsed: true,
-      focusedSectionIndex: null,
-      focusedSuggestionIndex: null,
-      valueBeforeUpDown: null,
-      lastAction: null
-    };
-
-    this.store = createStore(reducer, initialState);
-
-    this.saveInput = this.saveInput.bind(this);
-  }
-
-  saveInput(input) {
-    this.input = input;
+    this.store = createStore(reducer);
   }
 
   render() {
@@ -134,8 +115,8 @@ export default class AutosuggestContainer extends Component {
                    focusInputOnSuggestionClick={focusInputOnSuggestionClick}
                    theme={mapToAutowhateverTheme(theme)}
                    id={id}
-                   inputRef={this.saveInput}
-                   store={this.store} />
+                   inputRef={(input) => {this.input = input;}}
+                   store={this.props.store} />
     );
   }
 }
