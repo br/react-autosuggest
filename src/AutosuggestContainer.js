@@ -46,6 +46,8 @@ function mapToAutowhateverTheme(theme) {
   return result;
 }
 
+export { reducer };
+
 export default class AutosuggestContainer extends Component {
   static propTypes = {
     suggestions: PropTypes.array.isRequired,
